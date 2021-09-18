@@ -22,7 +22,7 @@ df_cars = df_cars[['price', 'year', 'manufacturer', 'model',
 #drop na informations
 df_cars = df_cars.dropna()
 df_cars = df_cars.query('odometer > 1000 and odometer <= 300000')
-df_cars = df_cars.query('price > 0 and price <= 350000')
+df_cars = df_cars.query('price > 7000 and price <= 350000')
 df_cars = df_cars.query('year > 1980')
 df_cars.drop_duplicates(inplace=True)
 df_cars.info()
@@ -57,3 +57,4 @@ strat_train_set.to_csv('strat_train_set.csv')
 strat_test_set.to_csv('strat_test_set.csv')
 
 print('Dataset saved successfully!')
+# %%
