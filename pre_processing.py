@@ -27,7 +27,7 @@ other = ['lexus', 'audi', 'kia', 'acura', 'cadillac', 'chrysler',
 'tesla', 'mercury', 'saturn', 'fiat', 'harley-davidson',
 'ferrari', 'aston-martin', 'datsun', 'land rover']
 #%%
-df_train['manufacturer'] = df_train['manufacturer'].replace(other,'new value')
+df_train['manufacturer'] = df_train['manufacturer'].replace(other,'others')
 df_train['manufacturer'] = df_train['manufacturer'].replace(['ram','dodge'],'dodge-ram')
 # %%
 df_train['year'] = 2021 - df_train['year']
@@ -40,4 +40,6 @@ df_train.drop(columns=['index'], inplace = True)
 # saves files in .csv
 df_train.to_csv('df_train_processed.csv')
 
+# %%
+print('Saved files!')
 # %%
