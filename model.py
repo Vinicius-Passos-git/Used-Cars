@@ -18,7 +18,7 @@ pd.set_option('display.max_columns', None)
 df_train = pd.read_csv('df_train_processed.csv')
 
 # %%
-df_train.drop(columns=['Unnamed: 0'], inplace = True)
+df_train.drop(columns=['Unnamed: 0', 'model'], inplace = True)
 
 # %%
 df_train.info()
@@ -43,39 +43,29 @@ model = Pipeline(steps=[
     ('forest_regressor', RandomForestRegressor(random_state=42))
 ])
 
-
-# %%
-# param_grid = [
-#     {'forest_regressor__n_estimators': [3, 5, 10, 20, 30], 
-#       'forest_regressor__max_features': [2, 4, 6, 8, 10]}
-#      ]
-
-# # %%
-# grid_search = GridSearchCV(model, param_grid, cv = 5,
-#                            scoring ='neg_mean_squared_error',
-#                            return_train_score=True)
-
-# grid_search.fit(cars, cars_price)
-
-# # %%
-# grid_search.best_estimator_
-
 # %%
 model.fit(cars, cars_price)
 print('Trained model')
 
 # %%
-# forest_scores = cross_val_score(model, cars, cars_price,
-#                                 scoring="neg_mean_squared_error", 
-#                                 cv=10)
-
-# forest_rmse_scores = np.sqrt(-forest_scores)
-
-# forest_rmse_scores
-
-# %%
 cars_predictions = model.predict(cars.iloc[1000:])
-forest_mse = mean_squared_error(cars_price.iloc[1000:], cars_predictions)
+forest_mse = mean_squared_error(cars_price.iloc[1000:], 
+                                cars_predictions)
 forest_rmse = np.sqrt(forest_mse)
 forest_rmse
+
+# %%
+forest_scores = cross_val_score(model, cars, cars_price,
+                                scoring="neg_mean_squared_error",
+                                cv=3)
+
+# %%
+forest_rmse_scores = np.sqrt(-forest_scores)
+forest_rmse_scores
+print('Mean for CV = 3', forest_rmse_scores.mean())
+print('Std for CV = 3', forest_rmse_scores.std())
+
+# %%
+print('finish')
+
 # %%
