@@ -48,8 +48,8 @@ model.fit(cars, cars_price)
 print('Trained model')
 
 # %%
-cars_predictions = model.predict(cars.iloc[1000:])
-forest_mse = mean_squared_error(cars_price.iloc[1000:], 
+cars_predictions = model.predict(cars.iloc[:1000])
+forest_mse = mean_squared_error(cars_price.iloc[:1000], 
                                 cars_predictions)
 forest_rmse = np.sqrt(forest_mse)
 forest_rmse
